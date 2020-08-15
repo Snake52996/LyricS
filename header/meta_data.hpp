@@ -71,21 +71,41 @@ namespace LyricS{
 			const bool set(const string&, const string&);
 			/**
 			 * @brief set officially supported meta data with a key
-			 *        replace currently existing value in case specified key already exists
+			 *        replace value in case specified key already exists
 			 * @param[in] MetaDataId key
 			 * @param[in] string value
 			 * @exception std::out_of_range in case key is not valid
+			 * @note strong exception guarantee
 			 * @note setting always success if no exception thrown
 			*/
 			void forcedSet(const MetaDataId&, const string&);
 			/**
 			 * @brief set user-defined meta data with a key
-			 *        replace currently existing value in case specified key already exists
+			 *        replace value in case specified key already exists
 			 * @param[in] string key
 			 * @param[in] string value
 			 * @note setting always success if no exception thrown
 			*/
 			void forcedSet(const string&, const string&);
+			/**
+			 * @brief remove officially supported meta data with specified key
+			 * @param[in] MetaDataId key
+			 * @exception std::out_of_range in case key is not valid
+			 * @note strong exception guarantee
+			 * @note specifying keys that don't exist has exactly no effect
+			*/
+			void erase(const MetaDataId&);
+			/**
+			 * @brief remove officially supported meta data with specified key
+			 * @param[in] string key
+			 * @note specifying keys that don't exist has exactly no effect
+			*/
+			void erase(const string&);
+			/**
+			 * @brief remove all meta data, both officially supported ones and user-defined ones
+			 * @note there is currently no way to clear partially
+			*/
+			void clear()noexcept;
 			virtual ~MetaData() = 0;
 	};	// class MetaData
 	class LyricMetaData: public MetaData{

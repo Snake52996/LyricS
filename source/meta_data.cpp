@@ -34,7 +34,17 @@ namespace LyricS{
 	void MetaData::forcedSet(const string& key, const string& value){
 		user_defined_data_.insert_or_assign(key, value);
 	}
-	
+	void MetaData::erase(const MetaDataId& key){
+		if(!this->isIdValid(key)) throw std::out_of_range("Invalid key");
+		official_data_.erase(key);
+	}
+	void MetaData::erase(const string& key){
+		user_defined_data_.erase(key);
+	}
+	void MetaData::clear()noexcept{
+		official_data_.clear();
+		user_defined_data_.clear();
+	}
 	const bool LyricMetaData::isIdValid(const MetaDataId& key)const noexcept{
 		return key > MetaDataId::BEGIN_LYRIC_METADATA_ID && key < CURRENT_LYRIC_METADATA_ID_LIMIT;
 	}
